@@ -2,7 +2,6 @@ from django.shortcuts import render
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from .models import Finch
 
-# Define the home view
 def home(request):
   return render(request, 'home.html')
 
