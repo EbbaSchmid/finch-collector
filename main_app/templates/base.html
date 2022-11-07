@@ -1,3 +1,5 @@
+{% load static %}
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -9,6 +11,17 @@
     type="image/png"
     href=""
   >
+  <link rel="stylesheet" type="text/css" href="{% static 'css/base.css' %}">
+  <link
+    rel="shortcut icon"
+    type="image/png"
+    href="{% static 'images/splash.svg' %}"
+  >
+  <img 
+  src="{% static 'images/header-logo.svg' %}"
+  alt="The Finch Collector Logo"
+>
+
   <title>Finch Collector</title>
   {% block head %}
   {% endblock %}
