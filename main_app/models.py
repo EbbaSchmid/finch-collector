@@ -45,20 +45,14 @@ class Finch(models.Model):
   def fed_for_today(self):
     return self.feeding_set.filter(date=date.today()).count() >= len(MEALS)
 
-
-
-# the Feeding Model
 class Feeding(models.Model):
   date = models.DateField('Feeding date')
   meal = models.CharField(
     max_length=1,
-    # add the 'choices' field option
     choices=MEALS,
-    # set the default value for meal to be 'B'
     default=MEALS[0][0]
   )
 
-  # Creating a finch_id column in the database
   finch=models.ForeignKey(Finch, on_delete=models.CASCADE)
 
   def __str__(self):
