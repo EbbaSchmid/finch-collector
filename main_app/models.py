@@ -2,14 +2,13 @@ from django.db import models
 from django.urls import reverse
 from datetime import date
 
-# Tuple for feedings
 MEALS = (
   ('B', 'Breakfast'),
   ('L', 'Lunch'),
   ('D', 'Dinner')
 )
 
-# Create your models here.
+
 
 class Toy(models.Model):
   name = models.CharField(max_length=50)

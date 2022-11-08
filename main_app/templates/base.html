@@ -6,24 +6,14 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link
-    rel="shortcut icon"
-    type="image/png"
-    href=""
+  <link 
+    rel="shortcut icon" 
+    type="image/jpg"
+    href="{% static 'images/waving.jpg' %}"
   >
-  <link rel="stylesheet" type="text/css" href="{% static 'css/base.css' %}">
-  <link
-    rel="shortcut icon"
-    type="image/png"
-    href="{% static 'images/splash.svg' %}"
-  >
-  <img 
-  src="{% static 'images/header-logo.svg' %}"
-  alt="The Finch Collector Logo"
->
-
   <title>Finch Collector</title>
-  {% block head %}
+  <link rel="stylesheet" type="text/css" href="{% static 'css/base.css' %}">
+  {% block head%}
   {% endblock %}
 </head>
 <body>
@@ -31,17 +21,18 @@
     <div class="header-logo-container">
       <a href="/">
         <img 
-          src=""
+          src="{% static 'images/' %}" 
           alt="The Finch Collector Logo"
         >
       </a>
     </div>
     <nav>
       <ul>
-      <li><a href="{% url 'finches_index' %}">All Finches</a></li>
-      <li><a href="{% url 'finches_create' %}">Add a Finch</a></li>
-      <li><a href="{% url 'about' %}">About</a></li>
-
+        <li><a href="{% url 'finches_index' %}">All Finches</a></li>
+        <li><a href="{% url 'toys_index' %}">All Toys</a></li>
+        <li><a href="{% url 'finches_create' %}">Add a Finch</a></li>
+        <li><a href="{% url 'toys_create' %}">Add a Toy</a></li>
+        <li><a href="{% url 'about' %}">About</a></li>
       </ul>
     </nav>
   </header>
