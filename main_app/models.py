@@ -9,11 +9,8 @@ MEALS = (
   ('D', 'Dinner')
 )
 
-
-
 # Create your models here.
 
-# the Toy Model
 class Toy(models.Model):
   name = models.CharField(max_length=50)
   color = models.CharField(max_length=20)
@@ -26,13 +23,10 @@ class Toy(models.Model):
 
 
 
-
-# the Finch Model
 class Finch(models.Model):
   name = models.CharField(max_length=100)
   description = models.TextField(max_length=250)
   age = models.IntegerField()
-    # Add the M:M relationship
   toys = models.ManyToManyField(Toy)
 
   
@@ -44,6 +38,7 @@ class Finch(models.Model):
 
   def fed_for_today(self):
     return self.feeding_set.filter(date=date.today()).count() >= len(MEALS)
+
 
 class Feeding(models.Model):
   date = models.DateField('Feeding date')
@@ -58,6 +53,5 @@ class Feeding(models.Model):
   def __str__(self):
     return f"{self.get_meal_display()} on {self.date}"
 
-  # change the default sort
   class Meta:
     ordering = ['-date']
