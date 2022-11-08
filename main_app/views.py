@@ -16,12 +16,12 @@ class Home(LoginView):
 def about(request):
   return render(request, 'about.html')
 
-@login_required
+
 def finches_index(request):
   finches = Finch.objects.all()
   return render(request, 'finches/index.html', { 'finches': finches })
 
-@login_required
+
 def finches_detail(request, finch_id):
   finch = Finch.objects.get(id=finch_id)
 
@@ -32,7 +32,7 @@ def finches_detail(request, finch_id):
   })
 
 
-class FinchCreate(LoginRequiredMixin, CreateView):
+class FinchCreate(CreateView):
   model = Finch
   fields = ['name', 'breed', 'description', 'age']
 
@@ -40,15 +40,15 @@ def form_valid(self, form):
     form.instance.user = self.request.user
     return super().form_valid(form)
 
-class FinchUpdate(LoginRequiredMixin, UpdateView):
+class FinchUpdate(UpdateView):
   model = Finch
   fields = ['breed', 'description', 'age']
 
-class FinchDelete(LoginRequiredMixin, DeleteView):
+class FinchDelete(DeleteView):
   model = Finch
   success_url = '/finches/'
 
-@login_required
+
 def add_feeding(request, finch_id):
   form = FeedingForm(request.POST)
   if form.is_valid():
@@ -58,26 +58,26 @@ def add_feeding(request, finch_id):
   return redirect('finches_detail', finch_id=finch_id)
 
 
-class ToyCreate(LoginRequiredMixin, CreateView):
+class ToyCreate(CreateView):
   model = Toy
   fields = '__all__'
 
-class ToyList(LoginRequiredMixin, ListView):
+class ToyList(ListView):
   model = Toy
 
-class ToyDetail(LoginRequiredMixin, DetailView):
+class ToyDetail(DetailView):
   model = Toy
 
-class ToyUpdate(LoginRequiredMixin, UpdateView):
+class ToyUpdate(UpdateView):
   model = Toy
   fields = ['name', 'color']
 
-class ToyDelete(LoginRequiredMixin, DeleteView):
+class ToyDelete(DeleteView):
   model = Toy
   success_url = '/toys/'
 
 
-@login_required
+
 def assoc_toy(request, finch_id, toy_id):
   Finch.objects.get(id=finch_id).toys.add(toy_id)
   return redirect('finches_detail', finch_id=finch_id)
