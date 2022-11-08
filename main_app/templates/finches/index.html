@@ -15,8 +15,6 @@
   <h1>Finch List</h1>
   <img src="{% static 'images/yellow.png' %}" alt="A cool finch" />
   <img src="{% static 'images/yellow.png' %}" alt="A happy finch" />
-  <img src="{% static 'images/yellow.png' %}" alt="A finch in a teacup" />
-  <img src="{% static 'images/yellow.png' %}" alt="A finch in a box" />
 </section>
 
 <section class="card-container">
@@ -29,12 +27,14 @@
             src="https://i.imgur.com/8TKO7NW.jpg" 
             width = 200px
             height= 200px
-            alt="A beautiful finch"
+            alt="A finch"
           >
           </div>
           <h2 class="card-title">{{ finch.name }}</h2>
           {% if finch.age > 0 %}
-            <p>A {{ finch.age }} year old</p>
+          <p>A {{ finch.age }} year old {{ finch.breed }}</p>
+          {% else %}
+            <p>A {{ finch.breed }} kitten.</p>
           {% endif %}
           <p><small>{{ finch.description }}</small></p>
         </div>

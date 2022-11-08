@@ -8,15 +8,17 @@
 {% block content %}
 
 <div class="page-header">
-  <h1>Add a Finch</h1>
-  <img src="{% static 'images/yellow.png' %}" alt="A finch using a computer"/>
+  {% if finch %}
+    <h1>Edit {{ finch.name }}</h1>
+  {% else %}
+    <h1>Add a Finch</h1>
+  {% endif %}
+  <img src="{% static 'images/yellow.png' %}" alt="A finch"/>
 </div>
 
-<form action="" method="post" class="form-container">
- 
+<form action="" method="POST" class="form-container">
   {% csrf_token %}
   <table>
-  
     {{ form.as_table }}
   </table>
   <button type="submit" class="btn submit">Submit!</button>
