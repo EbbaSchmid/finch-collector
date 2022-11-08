@@ -26,9 +26,11 @@
         <div class="card-content">
           <div class="card-img-container">
             <img 
-              src="{% static 'images/sk8r-boi-cat.svg' %}" 
-              alt="A skater boy finch"
-            >
+            src="https://i.imgur.com/8TKO7NW.jpg" 
+            width = 200px
+            height= 200px
+            alt="A beautiful finch"
+          >
           </div>
           <h2 class="card-title">{{ finch.name }}</h2>
           {% if finch.age > 0 %}
@@ -38,7 +40,6 @@
           {% endif %}
           <p><small>{{ finch.description }}</small></p>
         </div>
-      {% comment %} And this line {% endcomment %}
       </a>
     </div>
   {% endfor %}

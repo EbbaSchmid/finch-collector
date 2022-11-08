@@ -12,31 +12,33 @@
 >
 </script>
 <link 
-  rel="stylesheet"
-  type="text/css"
-  href="{% static 'css/finches/finch-detail.css' %}"
+  rel="stylesheet" 
+  type="text/css" 
+  href="{% static 'css/cats/cats-detail.css' %}"
 />
 <script defer src="{% static 'js/finch-detail.js' %}"></script>
 {% endblock %}
 
 {% block content %}
 
-<section class='finch-container'>
-  <div class="finch-img">
+<section class="cat-container">
+  <div class="cat-img">
     <img 
-      src="{% static 'images/sk8r-boi-cat.svg' %}" 
-      alt="A skater boy finch"
+      src="https://i.imgur.com/QSvg6Fv.png" 
+      width = 200px
+      height= 200px
+      alt="A beautiful finch"
     >
   </div>
-  <div class="finch-details">
+  <div class="cat-details">
     <h1>{{ finch.name }}</h1>
     {% if finch.age > 0 %}
       <h2>A {{ finch.age }} year old {{ finch.breed }}</h2>
     {% else %}
-      <h2>A {{ finch.breed }} kitten.</h2>
+      <h2>A {{ finch.breed }} Finch.</h2>
     {% endif %}
     <p>{{ finch.description }}</p>
-    <div class="finch-actions">
+    <div class="cat-actions">
       <a href="{% url 'finches_update' finch.id %}" class="btn warn">Edit</a>
       <a href="{% url 'finches_delete' finch.id %}" class="btn danger">Delete</a>
     </div>
@@ -46,33 +48,17 @@
   <section class="feedings">
     <div class="subsection-title">
       <h2>Feedings</h2>
-      <img 
-        src="{% static 'images/cat-cone.svg' %}" 
-        alt="An ice cream cone finch"
-      />
-      <img 
-        src="{% static 'images/cat-onigiri.svg' %}"
-        alt="A finch as onigiri"
-      />
-      <img 
-        src="{% static 'images/kitty-kabob.svg' %}" 
-        alt="A kabob of birds"
-      />
     </div>
     <h3>Add a Feeding</h3>
     <form
       action="{% url 'add_feeding' finch.id %}"
-      method="POST"
+      method="post" 
       class="subsection-content"
     >
-      {% if finch.fed_for_today %}
-        <p class="fed">
-          {{ finch.name }} has been fed all their meals for today!
-        </p>
+      {% if cat.fed_for_today %}
+        <p class="fed">{{cat.name}} has been fed all their meals for today!</p>
       {% else %}
-        <p class="unfed">
-          {{ finch.name }} might be hungry!
-        </p>
+        <p class="unfed">{{cat.name}} might be hungry!</p>
       {% endif %}
       {% csrf_token %}
       {{ feeding_form.as_p }}
@@ -80,25 +66,76 @@
     </form>
     <h3>Past Feedings</h3>
     {% if finch.feeding_set.all.count %}
-      <table>
-        <thead>
-          <tr><th>Date</th><th>Meal</th></tr>
-        </thead>
-        <tbody>
-          {% for feeding in finch.feeding_set.all %}
-            <tr>
-              <td>{{ feeding.date }}</td>
-              <td>{{ feeding.get_meal_display }}</td>
-            </tr>
-          {% endfor %}
-        </tbody>
-      </table>
-    {% else %}
-      <div class="subsection-content">
-        <p>{{ finch.name }} has never been fed :(</p>
-      </div>
-    {% endif %}
+    <table>
+      <thead>
+        <tr><th>Date</th><th>Meal</th></tr>
+      </thead>
+      <tbody>
+        {% for feeding in finch.feeding_set.all %}
+          <tr>
+            <td>{{feeding.date}}</td>
+            <td>{{feeding.get_meal_display}}</td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  {% else %}
+    <div class="subsection-content">
+      <p>{{finch.name}} has never been fed 😔</p>
+    </div>
+  {% endif %}
+  </section>
+  <section class="toys">
+    <div class="subsection-title">
+      <h2>Toys</h2>
+      <img src="{% static 'images/string.svg' %}" alt="A ball of string" />
+      <img src="{% static 'images/mouse.svg' %}" alt="A mouse" />
+      <img src="{% static 'images/fish.svg' %}" alt="A fishy toy" />
+    </div>
+    <h3>{{ finch.name }}'s Toys</h3>
+    <div class="subsection-content">
+      {% if finch.toys.count %}
+        {% for toy in finch.toys.all %}
+          <div class="toy-container">
+            <div 
+              class="color-block"
+              style="background-color: {{ toy.color }}"
+            ></div>
+            <a href="{% url 'toys_detail' toy.id %}">
+              <p>A {{ toy.color }} {{ toy.name }}</p>
+            </a>
+          </div>
+        {% endfor %}
+      {% else %}
+        <p class="no-toys">{{finch.name}} doesn't have any toys 😞</p>
+      {% endif %}
+    </div>
+    <h3>Available Toys</h3>
+    <div class="subsection-content">
+      {% if toys.count %}
+        {% for toy in toys.all %}
+          <div class="toy-container">
+            <div 
+              class="color-block"
+              style="background-color: {{ toy.color }}"
+            ></div>
+            <a href="{% url 'toys_detail' toy.id %}">
+              <p>A {{ toy.color }} {{ toy.name }}</p>
+            </a>
+            <form action="{% url 'assoc_toy' finch.id toy.id %}" method="post">
+              {% csrf_token %}
+              <button type="submit" class="btn submit">Give toy</button>
+            </form>
+          </div>
+        {% endfor %}
+      {% else %}
+        <p class="all-toys">
+          {{finch.name}} already has all the available toys 🥳
+        </p>
+      {% endif %}
+    </div>
   </section>
 </div>
+
 
 {% endblock %}

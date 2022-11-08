@@ -37,12 +37,12 @@ def finches_detail(request, finch_id):
 # Creating a finch
 class FinchCreate(CreateView):
   model = Finch
-  fields = ['name', 'breed', 'description', 'age']
+  fields = ['name', 'description', 'age']
 
 # Updating a finch
 class FinchUpdate(UpdateView):
   model = Finch
-  fields = ['breed', 'description', 'age']
+  fields = ['description', 'age']
 
 # Deleting a finch
 class FinchDelete(DeleteView):
