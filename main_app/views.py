@@ -8,6 +8,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from .models import Finch, Toy
 from .forms import FeedingForm
+from django.contrib.auth.views import LoginView
 
 
 class Home(LoginView):
